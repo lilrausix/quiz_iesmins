@@ -16,6 +16,8 @@ $topics = $conn->query("SELECT * FROM topics");
             <button><?php echo $row['title']; ?></button>
         </a>
     <?php endwhile; ?>
+    <br><br>
+    <a href="history.php"><button style="background:#28a745">Vēsture</button></a>
 </div>
 </body>
 </html>

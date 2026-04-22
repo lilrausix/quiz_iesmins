@@ -1,8 +1,17 @@
 <?php
+include 'db.php';
 session_start();
 $score = $_GET['score'] ?? 0;
 $total = $_GET['total'] ?? 0;
+$topic_id = $_GET['topic_id'] ?? 0;
 $wrong = isset($_GET['wrong']) ? json_decode(urldecode($_GET['wrong']), true) : [];
+
+// Insert into database
+if (isset($_SESSION['user_id']) && $topic_id > 0) {
+    $stmt = $conn->prepare("INSERT INTO quiz_attempts (user_id, topic_id, score, total_questions) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iiii", $_SESSION['user_id'], $topic_id, $score, $total);
+    $stmt->execute();
+}
 ?>
 <!DOCTYPE html>
 <html>

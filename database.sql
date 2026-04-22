@@ -8,6 +8,17 @@ CREATE TABLE users (
     role ENUM('admin', 'user') DEFAULT 'user'
 );
 
+CREATE TABLE quiz_attempts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    topic_id INT,
+    score INT,
+    total_questions INT,
+    date_taken TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (topic_id) REFERENCES topics(id)
+);
+
 CREATE TABLE topics (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL

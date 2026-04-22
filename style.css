@@ -155,3 +155,48 @@ input[type="radio"] {
     position: absolute;
     opacity: 0;
 }
+
+.history-item {
+    background: #fdfbff;
+    border-left: 5px solid #764ba2;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.history-info {
+    text-align: left;
+}
+
+.history-info strong {
+    display: block;
+    color: #4a148c;
+    font-size: 1.1em;
+}
+
+.history-score {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #764ba2;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}

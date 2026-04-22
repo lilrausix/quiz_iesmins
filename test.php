@@ -26,11 +26,12 @@ shuffle($questions);
         let currentIdx = 0;
         let score = 0;
         let wrongQuestions = [];
+        let topic_id = <?php echo $topic_id; ?>;
 
         function showQuestion() {
             if (currentIdx >= questions.length) {
                 let wrongJson = JSON.stringify(wrongQuestions);
-                window.location.href = "result.php?score=" + score + "&total=" + questions.length + "&wrong=" + encodeURIComponent(wrongJson);
+                window.location.href = "result.php?score=" + score + "&total=" + questions.length + "&wrong=" + encodeURIComponent(wrongJson) + "&topic_id=" + topic_id;
                 return;
             }
             let q = questions[currentIdx];
