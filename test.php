@@ -46,7 +46,9 @@ shuffle($questions);
         function nextQuestion() {
             let selected = document.querySelector('input[name="ans"]:checked');
             if (!selected) return alert("Izvēlies atbildi!");
-            if (selected.value !== questions[currentIdx].correct_answer) {
+            if (selected.value === questions[currentIdx].correct_answer) {
+                score++;
+            } else {
                 wrongQuestions.push({
                     question: questions[currentIdx].question_text,
                     correct: questions[currentIdx].correct_answer,

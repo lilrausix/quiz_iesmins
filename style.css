@@ -1,48 +1,157 @@
+/* Iestatām mainīgos vieglākai krāsu maiņai */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --hover-gradient: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  --bg-color: #f0f2f5;
+  --text-dark: #2d3436;
+}
+
 body {
-  font-family: sans-serif;
-  background: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-color);
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
   padding: 20px;
 }
+
 .container {
   background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  padding: 30px;
+  border-radius: 16px; /* Apaļāki stūri */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Maigāka, dziļāka ēna */
+  width: 100%;
+  max-width: 450px;
+  transition: transform 0.3s ease;
 }
+
+h2, h3 {
+  color: var(--text-dark);
+  text-align: center;
+}
+
 input,
-select,
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #764ba2;
+}
+
 button {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  box-sizing: border-box;
-}
-button {
-  background: #28a745;
-  color: white;
+  padding: 14px;
+  margin: 15px 0;
   border: none;
+  border-radius: 8px;
+  background: var(--primary-gradient);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+  transition: all 0.3s ease;
 }
+
+button:hover {
+  background: var(--hover-gradient);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Progresa josla */
 .progress-container {
   background: #eee;
-  border-radius: 5px;
-  margin: 10px 0;
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden; /* Lai progress neiziet ārpus rāmja */
 }
+
 .progress-bar {
-  height: 20px;
-  background: #28a745;
+  height: 12px;
+  background: var(--primary-gradient);
   width: 0%;
-  border-radius: 5px;
-  transition: width 0.3s;
+  border-radius: 10px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Atbilžu varianti */
 .option-label {
   display: block;
-  background: #f9f9f9;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  padding: 15px;
+  margin: 10px 0;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: #444;
+}
+
+.option-label:hover {
+  background: #f8f7ff;
+  border-color: #764ba2;
+  transform: scale(1.02);
+}
+
+/* Ja lieto radio pogas, tās var paslēpt un stilizēt labeli */
+input[type="radio"] {
+  display: none;
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Stils katrai atbildei */
+.option-label {
+    display: block;
+    padding: 15px;
+    background: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    position: relative;
+}
+
+/* Pelē hover efekts */
+.option-label:hover {
+    background: #f8f7ff;
+    border-color: #a29bfe;
+}
+
+/* Kad radio poga ir ieķeksēta (maģiskā daļa) */
+.option-label:has(input:checked) {
+    background: #f3e5f5 !important;
+    border-color: #764ba2 !important;
+    color: #4a148c !important;
+    box-shadow: 0 4px 12px rgba(118, 75, 162, 0.15);
+}
+
+/* Paslēpjam pašu aplīti, lai lapa izskatītos modernāk */
+.option-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
 }
