@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 
 </head>
 <body>
@@ -16,24 +16,36 @@
 </div>
 
 <div id="admin-panel" style="display: none;">
-    <h2>Admin Panelis</h2>
-    <h3>Pievienot jaunu tēmu</h3>
-    <input type="text" id="new-topic" placeholder="Tēmas nosaukums">
-    <hr>
-    <div id="question-creator">
-        <input type="text" id="q-text-input" placeholder="Jautājums">
-        <input type="text" class="ans-input" placeholder="1. Atbilde (Pareizā)" style="border-left: 5px solid green;">
-        <input type="text" class="ans-input" placeholder="2. Atbilde">
-        <input type="text" class="ans-input" placeholder="3. Atbilde">
-        <button onclick="addQuestionToTopic()" style="background: #6c5ce7;">Pievienot jautājumu</button>
+    <div class="container admin-container">
+        <h2>Admin Panelis</h2>
+        
+        <input type="text" id="new-topic" placeholder="Tēmas nosaukums">
+        
+        <div id="question-creator">
+            <input type="text" id="q-text-input" placeholder="Ieraksti jautājumu šeit...">
+            
+            <div class="answers-grid">
+                <input type="text" class="ans-input" placeholder="Pareizā atbilde" style="border-color: #28a745;">
+                <input type="text" class="ans-input" placeholder="Nepareizā atbilde 1">
+                <input type="text" class="ans-input" placeholder="Nepareizā atbilde 2">
+                <input type="text" class="ans-input" placeholder="Nepareizā atbilde 3">
+            </div>
+            
+            <div class="button-group">
+                <button onclick="addQuestionToTopic()">+ Pievienot sarakstam</button>
+            </div>
+        </div>
+
+        <p id="q-count">Pievienoti jautājumi: 0</p>
+
+        <div class="button-group">
+            <button onclick="saveTopic()" style="background: var(--primary-gradient);">Saglabāt visu tēmu</button>
+            <button onclick="logoutAdmin()" style="background: #6c757d;">Iziet</button>
+        </div>
     </div>
-    <p id="q-count">Pievienoti jautājumi: 0</p>
-    <button onclick="saveTopic()" style="background: #28a745;">Saglabāt visu tēmu</button>
     
     <h3>Esošās tēmas</h3>
     <div id="topics-list"></div>
-    
-    <button onclick="logoutAdmin()">Iziet</button>
 </div>
 <script src="test.js"></script>
 <script>
