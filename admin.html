@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <div id="admin-login" style="display: none;">
@@ -15,6 +17,7 @@
 
 <div id="admin-panel" style="display: none;">
     <h2>Admin Panelis</h2>
+    <h3>Pievienot jaunu tēmu</h3>
     <input type="text" id="new-topic" placeholder="Tēmas nosaukums">
     <hr>
     <div id="question-creator">
@@ -26,7 +29,15 @@
     </div>
     <p id="q-count">Pievienoti jautājumi: 0</p>
     <button onclick="saveTopic()" style="background: #28a745;">Saglabāt visu tēmu</button>
+    
+    <h3>Esošās tēmas</h3>
+    <div id="topics-list"></div>
+    
     <button onclick="logoutAdmin()">Iziet</button>
 </div>
+<script src="test.js"></script>
+<script>
+    document.getElementById("admin-login").style.display = "block";
+</script>
 </body>
 </html>

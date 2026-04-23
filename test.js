@@ -74,9 +74,10 @@ function loginAdmin() {
     const user = document.getElementById("admin-user").value;
     const pass = document.getElementById("admin-pass").value;
 
-    if (user === "Rukitis" && pass === "admin321") {
+    if (user === "Rukitis" && pass === "Admin321") {
         document.getElementById("admin-login").style.display = "none";
         document.getElementById("admin-panel").style.display = "block";
+        loadTopics();
     } else {
         alert("Nepareizs lietotājvārds vai parole!");
     }
@@ -110,26 +111,71 @@ function saveTopic() {
         return;
     }
 
-    // Iegūstam esošās tēmas no localStorage
-    let allTopics = JSON.parse(localStorage.getItem("quizTopics")) || [];
-    
-    // Pievienojam jauno tēmu
-    allTopics.push({
-        title: topicName,
-        questions: tempQuestions
-    });
+    // Send to server
+    const formData = new FormData();
+    formData.append('topic_title', topicName);
+    formData.append('questions', JSON.stringify(tempQuestions));
 
-    localStorage.setItem("quizTopics", JSON.stringify(allTopics));
-    
-    alert("Tēma veiksmīgi saglabāta!");
-    
-    // Atiestatām visu
-    tempQuestions = [];
-    document.getElementById("new-topic").value = "";
-    document.getElementById("q-count").innerText = "Pievienoti jautājumi: 0";
+    fetch('admin_save.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Tēma veiksmīgi saglabāta!");
+            // Reset
+            tempQuestions = [];
+            document.getElementById("new-topic").value = "";
+            document.getElementById("q-count").innerText = "Pievienoti jautājumi: 0";
+            loadTopics(); // Reload topics list
+        } else {
+            alert("Kļūda: " + data.message);
+        }
+    })
+    .catch(error => {
+        alert("Kļūda saglabājot: " + error);
+    });
 }
 
 function logoutAdmin() {
     document.getElementById("admin-panel").style.display = "none";
     document.getElementById("setup-screen").style.display = "block";
+}
+
+function loadTopics() {
+    fetch('get_topics.php')
+    .then(response => response.json())
+    .then(topics => {
+        const list = document.getElementById('topics-list');
+        list.innerHTML = topics.map(topic => `
+            <div style="margin: 10px 0; padding: 10px; border: 1px solid #ccc;">
+                <strong>${topic.title}</strong>
+                <button onclick="deleteTopic(${topic.id})" style="background: #dc3545; color: white; margin-left: 10px;">Dzēst</button>
+            </div>
+        `).join('');
+    })
+    .catch(error => console.error('Error loading topics:', error));
+}
+
+function deleteTopic(topicId) {
+    if (!confirm('Vai tiešām dzēst šo tēmu?')) return;
+
+    const formData = new FormData();
+    formData.append('topic_id', topicId);
+
+    fetch('delete_topic.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Tēma dzēsta!');
+            loadTopics(); // Reload the list
+        } else {
+            alert('Kļūda: ' + data.message);
+        }
+    })
+    .catch(error => alert('Kļūda dzēšot: ' + error));
 }
