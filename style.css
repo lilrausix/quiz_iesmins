@@ -200,3 +200,14 @@ th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
+
+#admin-panel input {
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+#question-creator {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}

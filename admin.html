@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="admin-login" style="display: none;">
+    <h2>Admin Ieja</h2>
+    <input type="text" id="admin-user" placeholder="Lietotājvārds">
+    <input type="password" id="admin-pass" placeholder="Parole">
+    <button onclick="loginAdmin()">Ielogoties</button>
+</div>
+
+<div id="admin-panel" style="display: none;">
+    <h2>Admin Panelis</h2>
+    <input type="text" id="new-topic" placeholder="Tēmas nosaukums">
+    <hr>
+    <div id="question-creator">
+        <input type="text" id="q-text-input" placeholder="Jautājums">
+        <input type="text" class="ans-input" placeholder="1. Atbilde (Pareizā)" style="border-left: 5px solid green;">
+        <input type="text" class="ans-input" placeholder="2. Atbilde">
+        <input type="text" class="ans-input" placeholder="3. Atbilde">
+        <button onclick="addQuestionToTopic()" style="background: #6c5ce7;">Pievienot jautājumu</button>
+    </div>
+    <p id="q-count">Pievienoti jautājumi: 0</p>
+    <button onclick="saveTopic()" style="background: #28a745;">Saglabāt visu tēmu</button>
+    <button onclick="logoutAdmin()">Iziet</button>
+</div>
+</body>
+</html>

@@ -67,3 +67,69 @@ function clearHistory() {
         showHistory();
     }
 }
+
+let tempQuestions = []; // Šeit glabāsim jautājumus pirms tēmas saglabāšanas
+
+function loginAdmin() {
+    const user = document.getElementById("admin-user").value;
+    const pass = document.getElementById("admin-pass").value;
+
+    if (user === "Rukitis" && pass === "admin321") {
+        document.getElementById("admin-login").style.display = "none";
+        document.getElementById("admin-panel").style.display = "block";
+    } else {
+        alert("Nepareizs lietotājvārds vai parole!");
+    }
+}
+
+function addQuestionToTopic() {
+    const qText = document.getElementById("q-text-input").value;
+    const ansInputs = document.querySelectorAll(".ans-input");
+    const answers = Array.from(ansInputs).map(i => i.value).filter(v => v !== "");
+
+    if (qText && answers.length >= 2) {
+        tempQuestions.push({
+            question: qText,
+            answers: answers,
+            correct: 0 // Šajā piemērā pirmā atbilde vienmēr ir pareizā
+        });
+        
+        // Notīrām laukus nākamajam jautājumam
+        document.getElementById("q-text-input").value = "";
+        ansInputs.forEach(i => i.value = "");
+        document.getElementById("q-count").innerText = `Pievienoti jautājumi: ${tempQuestions.length}`;
+    } else {
+        alert("Aizpildi jautājumu un vismaz 2 atbildes!");
+    }
+}
+
+function saveTopic() {
+    const topicName = document.getElementById("new-topic").value;
+    if (!topicName || tempQuestions.length === 0) {
+        alert("Ievadi tēmas nosaukumu un pievieno jautājumus!");
+        return;
+    }
+
+    // Iegūstam esošās tēmas no localStorage
+    let allTopics = JSON.parse(localStorage.getItem("quizTopics")) || [];
+    
+    // Pievienojam jauno tēmu
+    allTopics.push({
+        title: topicName,
+        questions: tempQuestions
+    });
+
+    localStorage.setItem("quizTopics", JSON.stringify(allTopics));
+    
+    alert("Tēma veiksmīgi saglabāta!");
+    
+    // Atiestatām visu
+    tempQuestions = [];
+    document.getElementById("new-topic").value = "";
+    document.getElementById("q-count").innerText = "Pievienoti jautājumi: 0";
+}
+
+function logoutAdmin() {
+    document.getElementById("admin-panel").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+}
